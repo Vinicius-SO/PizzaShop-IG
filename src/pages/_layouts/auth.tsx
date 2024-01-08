@@ -16,7 +16,7 @@ export function AuthLayout(){
             </div>
 
 
-            <div className="flex flex-rol justify-center items-center">
+            <div className=" relative flex flex-rol justify-center items-center">
                 <Outlet/>
             </div>
         </div>
