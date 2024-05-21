@@ -5,9 +5,7 @@ import {
     LineChart,
     XAxis,
     YAxis,
-    CartesianGrid,
     Line,
-    Tooltip
  } from 'recharts'
 
  const data = [
