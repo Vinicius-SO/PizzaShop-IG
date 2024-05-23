@@ -6,6 +6,7 @@ import {
     XAxis,
     YAxis,
     Line,
+    CartesianGrid,
  } from 'recharts'
 
  const data = [
@@ -49,6 +50,7 @@ export function RevenueShard(){
                             }
                             />
                             <Line type="linear" strokeWidth={2} dataKey="revenue"/>
+                            <CartesianGrid vertical={false} className="stroke-muted"/>
                         </LineChart>
                     </ResponsiveContainer>
                 </CardContent>
