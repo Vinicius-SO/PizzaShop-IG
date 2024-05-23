@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@radix-ui/react-label"
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 
 
 import { Helmet } from "react-helmet-async"
@@ -9,6 +9,8 @@ import {useForm} from 'react-hook-form'
 import { z } from 'zod'
 
 import { toast } from "sonner"
+import { useMutation } from "@tanstack/react-query"
+import { signIn } from "@/api/sign-in"
 
 const signInForm = z.object({
     email: z.string().email()
@@ -17,12 +19,22 @@ const signInForm = z.object({
 type SignInForm = z.infer<typeof signInForm>
 
 export function SignIn(){
-    const { register,handleSubmit, formState:{ isSubmitting} } = useForm<SignInForm>()
 
-    
+    const [searchParams] = useSearchParams()
+
+    const { register,handleSubmit, formState:{ isSubmitting} } = useForm<SignInForm>({
+      defaultValues: {
+        email: searchParams.get('email') ?? ''
+      }
+      })
+
+    const { mutateAsync: authenticate } = useMutation({
+      mutationFn: signIn,
+      
+    })
     async function handleSignIn (data: SignInForm){
         try{
-            await new Promise((resolve)=> setTimeout(resolve,2000))
+            await authenticate({email: data.email})
             console.log(data)
             toast.success('Enviamos um link de autenticação para seu e-mail',{
                 action:{
