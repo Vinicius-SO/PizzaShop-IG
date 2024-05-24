@@ -19,6 +19,7 @@ import { z } from "zod";
 export function Orders() {
   const [searchParams, setSearchParams] = useSearchParams()
 
+
   const orderId = searchParams.get('orderId')
   const customerName = searchParams.get('customerName')
   const status = searchParams.get('status')
@@ -33,6 +34,9 @@ export function Orders() {
     queryFn: () =>
       getOrders({
         pageIndex,
+        orderId,
+        customerName,
+        status: status === 'all' ? null : status,
       }),
   })
 
